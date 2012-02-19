@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">    
+ 
+    <head> 
+ 
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /> 
+	 
+		<!-- Title --> 
+		<title>Space Game!</title> 
+		
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" /> 
+		<link rel="stylesheet" type="text/css" href="css/jckStyle.css" /> 
+		<link rel="stylesheet" type="text/css" href="css/spacegame.css" />
+		<link rel="stylesheet" type="text/css" href="css/colorbox.css" />		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+		
+		<!-- JavaScript includes --> 
+		
+		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script> 
+		<script type="text/javascript" src="js/jck.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.colorbox-min.js"></script>
+		<script type="text/javascript" src="js/gameentities.js"></script>
+		<script type="text/javascript" src="js/spacegame.js"></script> 
+		
+		<!-- favicon --> 
+		<link rel="SHORTCUT ICON" href=""/> 
+		
+		<!-- Meta tags --> 
+		<meta name="description" content="" /> 
+		<meta name="keywords" content="" /> 
+		<meta name="author" content="" /> 
+	 
+		<script type="text/javascript">
+
+		/* <![CDATA[ */
+
+		$(function(){
+			
+			// Prevent the user from controlling the game when it is in the background
+			$(document).bind('cbox_open', function(){
+				global.suspendControl = true;
+			}).bind('cbox_closed', function(){
+				global.suspendControl = false;
+			})
+			
+			$('#btn-show-help').click(function(){
+				$.fn.colorbox({inline:true, href:'#instructions'});	
+			});
+			
+			$('#open-submit-form').click(function(){
+				$.fn.colorbox({inline:true, href:'#submit-container'});
+			});
+			
+			$('#btn-deline, .close').click(function(){
+				$.fn.colorbox.close();
+			});
+			
+			$('#btn-submit').click(function(){
+				submit();
+			});
+			
+			$('#txt-name').keydown(function(evt){
+				if (evt.which == 13){ // enter
+					submit();
+				}
+			});
+			
+			$('#play-again').click(function(){
+				location.reload(true);	
+			});
+			
+			$(document).bind('cbox_complete', function(){
+				$('#cboxLoadedContent input[type=text]:first').focus();
+			});
+			
+			updateLeaderboard();
+			
+		});
+		
+		function submit(){
+			send({
+				intent	: 'makeEntry',
+				name	: $('#txt-name').val(),
+				killed	: global.enemiesKilled,
+				time	: global.gameTimeString	
+			});
+			
+			$('#open-submit-form').remove();
+		}
+		
+		function getLeaders(dataToSend){
+			$.post('spaceScoreManager.php',
+				dataToSend, 
+				function(dataReturned) {
+					
+					output = '';
+					
+					for (this.i = 0; this.i < dataReturned.length; this.i++){
+						output += '<li>';
+						output += spanify(dataReturned[this.i].leader_name, 'name');
+						output += spanify(dataReturned[this.i].leader_enemies_killed, 'killed');
+						output += spanify(dataReturned[this.i].leader_game_time, 'game-time');
+						output += '</li>';
+					}
+					
+					$('ul.leaderboard').html(output)
+				}, 'json'
+			);	
+		}
+				function send(dataToSend){
+			$.post('spaceScoreManager.php',
+				dataToSend, 
+				function(dataReturned) {
+					updateLeaderboard();
+					$.fn.colorbox.close();
+				}
+			);
+		}
+		
+		function spanify(text, cssClass){
+			return '<span class="' + cssClass + '">' + text + '</span>';
+		}
+		
+		function updateLeaderboard(){
+			getLeaders({intent : 'getRecords'});
+		}
+		
+		/* ]]> */
+		</script>
+ 
+    </head> 
+ 
+    <body> 
+		<div class="spaceGameContainer">
+			<h2>In CSS no one can hear you SCREAM!</h2>
+	 		
+	 		<div class="left">
+	 			<ul class="gameStats left">
+					<li class="time">
+						You have survived <span class="count">0:0.0</span>
+					</li>
+				</ul>
+				
+				<div class="leaderboard header">
+				
+					<div class="title">Leaderboard</div>
+					
+					<div class="name">Player</div>
+					<div class="killed">Kills</div>
+					<div class="game-time">Time</div>
+				
+				</div>
+				
+				<ul class="leaderboard">
+				
+				</ul>
+	 		</div>
+	 		
+	 		<div class="center">
+	 			<canvas id="spaceGame">Oh!  Your browser doesn't support the canvas tag.  You should probably use a good browser, not the bad one you are currently in.</canvas>
+	 			<div id="pause-container">Paused</div>
+	 		</div>
+	 		
+	 		<div class="right">
+		 		<ul class="gameStats">
+					<li class="hit">
+						You have been hit <span class="count">0</span> out of 10 times.
+					</li>
+					<li class="enemies-killed">
+						You have killed <span class="count">0</span> enemies.
+					</li>
+				</ul>
+	 		</div>
+	 		
+	 		<div class="lower-section">
+	 		
+	 			<p>Designed and developed by <a href="http://www.jeremyckahn.com" target="_blank">Jeremy Kahn</a>.</p>
+	 			<p>Powered by the <a href="http://www.jeremyckahn.com/jck" target="_blank">jQuery Canvas Kit</a>.</p>
+	 		
+	 			<button id="btn-show-help">How to play</button>
+	 		
+	 			<div class="game-over-container">
+		 			<h1 class="died">You have DIED.</h1>
+		 			<button id="open-submit-form">Submit my high score</button>
+		 			<button id="play-again">Play again</button>
+		 		</div>
+	 		</div>
+	 		
+	 		<div class="submit modal-container">
+	 			<div id="submit-container" class="modal-contents">
+	 				<label for="txt-name"><span class="highlight">Great job!</span>  Enter your name and submit your score.</label>
+	 				<input id="txt-name" type="text" value="" maxlength="12" />
+	 				<a id="btn-submit" class="button" href="#">Submit score!</a>
+	 				<a id="btn-deline" class="button" href="#">No thanks.</a>
+	 			</div>
+	 		</div>
+	 		
+	 		<div class="help modal-container">
+	 		
+	 			<div id="instructions" class="modal-contents">
+	 		
+		 			<ul>
+						<li>
+							<span class="label">Spacebar</span>
+							<span class="value">Kill things</span>
+						</li>
+						
+						<li>
+							<span class="label">&larr; and &rarr;</span>
+							<span class="value">Dodge and aim</span>
+						</li>
+						
+						<li>
+							<span class="label">P Key</span>
+							<span class="value">Pause</span>
+						</li>
+						
+						<li>
+							<span class="label">D Key</span>
+							<span class="value">Developer Mode</span>
+						</li>
+						
+					</ul>
+					
+					<a href="#" class="close">click to close</a>
+					
+				</div>
+				
+	 		</div>
+			
+		</div>
+		
+		<!-- Google Analytics --> 
+		<script type="text/javascript"> 
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script> 
+		<script type="text/javascript"> 
+			try 
+			{
+				var pageTracker = _gat._getTracker("UA-10592695-2");
+				pageTracker._trackPageview();
+			} 
+			catch(err) 
+			{
+				
+			}
+			</script> 
+    </body> 
+  
+</html>

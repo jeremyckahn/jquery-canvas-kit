@@ -1,0 +1,343 @@
+html{
+	background:				#1a1a1a;	
+}
+
+body{
+	font-family:			helvetica, arial;	
+}
+
+.spaceGameContainer{
+	margin:					0px auto;
+	width:					960px;
+}
+
+.spaceGameContainer h2{
+	color:					#dadada;
+	font-family: 			'Lobster', arial, serif;
+	font-size:				2.4em;
+	margin: 				30px 0px 50px;
+	text-align:				center;
+}
+
+.spaceGameContainer #spaceGame{
+	background:				#000;
+	display:				block;
+	margin:					0px auto;
+}
+
+.spaceGameContainer ul.gameStats{
+	
+}
+
+.spaceGameContainer ul.gameStats li{
+	list-style:				none;
+}
+
+.spaceGameContainer ul.gameStats li .label,
+.spaceGameContainer ul.gameStats li .value{
+	float:					left;
+}
+
+.spaceGameContainer ul.gameStats li .label{
+	font-weight:			bold;
+	width:					200px;	
+}
+
+.spaceGameContainer > .left,
+.spaceGameContainer > .center,
+.spaceGameContainer > .right{
+	float:					left;
+	position:				relative;
+	width:					33%;
+}
+
+.spaceGameContainer .left{
+	
+}
+
+.spaceGameContainer .center{
+	
+}
+
+.spaceGameContainer .right{
+	
+}
+
+.spaceGameContainer .lower-section{
+	clear:					both;
+	margin:					0px auto;	
+}
+
+.spaceGameContainer .lower-section p{
+	color:					#777;
+	margin:					5px 0px;
+	text-align:				center;
+}
+
+.spaceGameContainer .lower-section a:active,
+.spaceGameContainer .lower-section a:link,
+.spaceGameContainer .lower-section a:visited{
+	color:					#ccc;
+	font-weight:			bold;
+	text-decoration:		none;
+}
+
+.spaceGameContainer .lower-section a:hover{
+	color:					#aaa;
+}
+
+.spaceGameContainer .lower-section h1{
+	font-size:				3em;
+	margin:					0px;
+	text-align:				center;
+}
+
+.spaceGameContainer .lower-section h1.died{
+	color:					#f00;
+	margin-bottom:			30px;
+}
+
+.spaceGameContainer .gameStats{
+	font-weight:			bold;
+	font-size:				1.3em;
+	padding-left:			30px;
+	text-align:				center;
+	text-transform:			uppercase;
+}
+
+.spaceGameContainer .gameStats.left{
+	padding:				0px 0px 0px 0px;
+}
+
+.spaceGameContainer .gameStats li{
+	letter-spacing:			0.1em;
+	margin:					0px 0px 95px;
+}
+
+.spaceGameContainer .gameStats .count{
+	display:				block;
+	font-size:				2.6em;	
+}
+
+.spaceGameContainer .gameStats .hit{
+	color:					#FFE51F;
+}
+
+.spaceGameContainer .gameStats .enemies-killed{
+	color:					#f0f;
+}
+
+.spaceGameContainer .gameStats .time{
+	color:					#66EDE0;
+	margin-bottom:			30px;
+}
+
+.modal-container{
+	display:				none;	
+}
+
+#submit-container{
+	
+}
+
+#submit-container input{
+	background:				#ccc;
+	border:					none;
+	color:					#444;
+	height:					30px;
+	padding: 				6px 11px;
+}
+
+#submit-container label{
+	color: 					#777;
+	display: 				block;
+	font-size: 				1.5em;
+	padding: 				0px 0px 10px 7px;
+}
+
+#submit-container label .highlight{
+	color:					#ccc;	
+}
+
+#submit-container input,
+#submit-container .button{
+	font-size:				1.5em;
+	float:					left;
+}
+
+
+/* Used this handy tool to help generate the button styling: http://css-tricks.com/examples/ButtonMaker/ */
+button, .button{
+   background: 				#143a54;
+   background: 				-webkit-gradient(linear, left top, left bottom, from(#333), to(#111));
+   background: 				-moz-linear-gradient(top, #333, #111);
+   border:					none;
+   border-top: 				1px solid #333;
+   border-radius: 			9px;
+   box-shadow: 				rgba(0,0,0,1) 0 1px 0;
+   color: 					#999;
+   font-size:				24px;
+   margin:					2px 8px;
+   padding: 				6px 11px;
+   text-decoration: 		none;
+   text-shadow: 			rgba(0,0,0,.4) 0 1px 0;
+   vertical-align: 			middle;
+   
+   -webkit-border-radius: 	9px;
+   -moz-border-radius: 		9px;
+   -webkit-box-shadow: 		rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: 		rgba(0,0,0,1) 0 1px 0;
+   -webkit-box-shadow: 		rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: 		rgba(0,0,0,1) 0 1px 0;
+}
+
+button:hover,
+.button:hover{
+   background: 				-webkit-gradient(linear, left top, left bottom, from(#2c2c2c), to(#111));
+   background: 				-moz-linear-gradient(top, #2c2c2c, #111);
+   border-top-color: 		#111;
+}
+  
+button:active,
+.button:active{
+	background: 				-webkit-gradient(linear, left top, left bottom, from(#222), to(#111));
+	background: 				-moz-linear-gradient(top, #222, #111);
+	border-top-color: 		#111;
+}
+
+.leaderboard{
+	color:					#8FE312;
+}
+
+ul.leaderboard{
+	list-style:				none;
+	padding:				0px;
+}
+
+.leaderboard.header{
+	font-size:				1.3em;
+	overflow:				auto;
+	margin-bottom:			14px;
+}
+
+.leaderboard.header .title{
+	font-size:				1.3em;
+	text-align:				center;
+	margin:					0px 0px 12px 0px;	
+}
+
+.name, .killed, .game-time{
+	display:				block;
+	float:					left;
+	text-align:				left;
+}
+
+.name{
+	width:					150px;
+}
+
+.killed{
+	width:					80px;
+}
+
+.game-time{
+	width:					70px;
+}
+
+li .name, li .killed, li .game-time{
+	text-align:				left;
+}
+
+.game-over-container{
+	clear:					both;
+	display:				none;
+	height:					0px;
+	overflow:				visible;
+	position:				relative;
+	top:					-390px;
+}
+
+.game-over-container button{
+	display:				block;
+	margin:					0px auto 12px;
+	position: 				relative;
+	text-align:				center;
+	width:					13em;
+}
+
+.modal-contents{
+	background:				#444;
+	overflow:				auto;
+	padding:				20px;
+	position:				relative;	
+	
+	-webkit-border-radius: 	14px;
+	-moz-border-radius: 	14px;
+}
+
+#instructions{
+	width:					340px;
+}
+
+#instructions ul{
+	padding:				0px;	
+}
+
+#instructions li{
+	clear:					both;
+	font-size:				1.2em;
+	list-style:				none;
+	margin-bottom:			10px;
+	overflow:				auto;
+}
+
+#instructions li .label,
+#instructions li .value{
+	display:				block;
+	float:					left;
+}
+
+#instructions li .label{
+	color:					#777;
+	width:					180px;	
+}
+
+#instructions li .value{
+	color:					#ccc;
+	width:					160px;
+}
+
+#instructions .close{
+	color:					#222;
+	display:				block;
+	font-size:				1.5em;
+	margin:					26px 0px 0px;	
+	text-align:				center;
+	text-decoration:		none;
+}
+
+#instructions .close:hover{
+	color:					#262626;	
+}
+
+#btn-show-help{
+	float:					right;
+	position:				relative;
+	top:					-40px;
+}
+
+#pause-container{
+	color:					#0EE6C2;
+	display:				none;
+	font-size:				2.8em;
+	position:				absolute;
+	text-align:				center;
+	text-transform:			uppercase;
+	top:					185px;
+	width:					100%;
+}
+
+#pause-container:before,
+#pause-container:after{
+	content:				'*';
+}
